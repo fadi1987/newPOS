@@ -13,6 +13,10 @@ public class UserReaderClass {
 	 * ReadLoginData(); }
 	 */
 	private static String _pathToStorageFileUserInfo = "Userinfo.csv";
+	
+	public UserReaderClass() throws IOException {
+		ReadLoginData();
+	}
 
 	private static void CreateStorageFile() throws IOException {
 		File storageFile = new File(_pathToStorageFileUserInfo);

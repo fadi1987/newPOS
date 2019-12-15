@@ -53,11 +53,13 @@ public class Login {
 			if (loginInfoLookup.containsKey(_userName)) {
 				if (loginInfoLookup.get(_userName).equals(_password)) {
 					message = "login successful";
+					System.out.println(message);
 					loggedInUser = userLookup.get(_userName);
 					loggedIn = true;
 				}
 			} else {
 				message = "UserName or password is incorrect, please try again";
+				System.out.println(message);
 				loggedIn = false;
 			}
 		return message;

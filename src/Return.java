@@ -130,7 +130,7 @@ public class Return extends Transaction {
 	}
 
 	@Override
-	protected void processPayment() {
+	public void processPayment() {
 		subTotal = calculateSubtotal(returnMap);
 		total = calculateTotal(subTotal);
 		returnPayment();
