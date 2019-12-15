@@ -28,8 +28,10 @@ public class Sales extends Transaction {
     		if (x.getItemID()==productID && x.getQuantity().doubleValue() >= quantity.doubleValue()) {
     			saleList.put(x, quantity);
     			message = "Successfully Added";
+    			System.out.println(message);
     		} else {
     			message = "Product not found/Insufficient quantity.";
+    			System.out.println(message);
     		}
     	}
     }
