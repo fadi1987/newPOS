@@ -49,12 +49,12 @@ public class Menu {
 		}
 
 		switch (registerSelection) {
-		case 1:
-			operatingRegister = register1;
-			break;
-		case 2:
-			operatingRegister = register2;
-			break;
+			case 1:
+				operatingRegister = register1;
+				break;
+			case 2:
+				operatingRegister = register2;
+				break;
 		}
 
 		PrintMenu();
@@ -111,28 +111,26 @@ public class Menu {
 			try {
 				System.out.println(" Enter Your Selection");
 				choice = Integer.parseInt(Input.nextLine());
-			}
-
-			catch (NumberFormatException e) {
+			} catch (NumberFormatException e) {
 				System.out.println("Invalied Selection");
 			}
 		}
 		switch (choice) {
 
-		case 1:
-			SalesMenu();
-			break;
+			case 1:
+				SalesMenu();
+				break;
 
-		case 2:
-			ReturnsMenu();
-			break;
+			case 2:
+				ReturnsMenu();
+				break;
 
-		case 3:
-			PrintMenu();
-			break;
+			case 3:
+				PrintMenu();
+				break;
 
-		default:
-			return;
+			default:
+				return;
 
 		}
 
@@ -153,29 +151,29 @@ public class Menu {
 			selection = SelectionChecker(1, 3);
 
 			switch (selection) {
-			case 1:
-				System.out.println("Please enter the Item ID");
-				int itemID = SelectionChecker();
-				System.out.println("Please enter the associated quantity");
-				Number quan = formatChecker();
-				newSale.addItem(itemID, quan);
-				break;
-			case 2:
-				System.out.println("Please enter the Item ID");
-				int removalID = SelectionChecker();
-				System.out.println("Please enter the associated quantity");
-				Number removalQuan = formatChecker();
-				newSale.removeItem(removalID, removalQuan);
-				break;
-			case 3:
-				newSale.processPayment();
-				if (userType.equalsIgnoreCase("cashier")) {
-					CashierMenu();
-				} else {
-					managerMenu();
-				}
+				case 1:
+					System.out.println("Please enter the Item ID");
+					int itemID = SelectionChecker();
+					System.out.println("Please enter the associated quantity");
+					Number quan = formatChecker();
+					newSale.addItem(itemID, quan);
+					break;
+				case 2:
+					System.out.println("Please enter the Item ID");
+					int removalID = SelectionChecker();
+					System.out.println("Please enter the associated quantity");
+					Number removalQuan = formatChecker();
+					newSale.removeItem(removalID, removalQuan);
+					break;
+				case 3:
+					newSale.processPayment();
+					if (userType.equalsIgnoreCase("cashier")) {
+						CashierMenu();
+					} else {
+						managerMenu();
+					}
 
-				break;
+					break;
 
 			}
 		}
@@ -252,107 +250,145 @@ public class Menu {
 		int Selection = SelectionChecker(1, 2);
 
 		switch (Selection) {
-		case 1:
-			newReturn.returnAllItems();
-			break;
-		case 2:
-			boolean finishedAddingItem = false;
+			case 1:
+				newReturn.returnAllItems();
+				break;
+			case 2:
+				boolean finishedAddingItem = false;
 
-			while (finishedAddingItem == false) {
-				System.out.println("Please enter the Item ID");
-				int removalID = SelectionChecker();
-				System.out.println("Please enter the associated quantity");
-				Number removalQuan = formatChecker();
-				newReturn.addReturningItem(removalID, removalQuan);
-				System.out.println("All items added? Enter \"Y\"/\"N\"");
-				String finished = input.nextLine();
+				while (finishedAddingItem == false) {
+					System.out.println("Please enter the Item ID");
+					int removalID = SelectionChecker();
+					System.out.println("Please enter the associated quantity");
+					Number removalQuan = formatChecker();
+					newReturn.addReturningItem(removalID, removalQuan);
+					System.out.println("All items added? Enter \"Y\"/\"N\"");
+					String finished = input.nextLine();
 
-				if (finished.equalsIgnoreCase("y")) {
-					finishedAddingItem = true;
-				} else if (finished.equalsIgnoreCase("n")) {
-					continue;
-				} else {
-					System.out.println("Invalid selection.  Please try adding the item again!");
+					if (finished.equalsIgnoreCase("y")) {
+						finishedAddingItem = true;
+					} else if (finished.equalsIgnoreCase("n")) {
+						continue;
+					} else {
+						System.out.println("Invalid selection.  Please try adding the item again!");
+					}
 				}
-			}
 
-			newReturn.processPayment();
-			if (userType.equalsIgnoreCase("cashier")) {
-				CashierMenu();
-			} else {
-				managerMenu();
-			}
+				newReturn.processPayment();
+				if (userType.equalsIgnoreCase("cashier")) {
+					CashierMenu();
+				} else {
+					managerMenu();
+				}
 
 		}
 
 	}
 
+	private void Invintory() {
+
+
+		System.out.println(" Please Select one of the following ");
+		System.out.println(" 1  Remove  ");
+		System.out.println(" 2 Invintory list   ");
+		System.out.println(" 3 Order Item  ");
+
+		Scanner sca = new Scanner(System.in);
+		boolean ValidSelection = false;
+		int Selection = -1;
+		while (ValidSelection == false) {
+			String _input = input.nextLine();
+			try {
+				Selection = Integer.parseInt(_input);
+			} catch (NumberFormatException e) {
+				System.out.println("Please enter a valid number!");
+				continue;
+			}
+
+		}
+
+
+		switch (Selection) {
+
+
+			case 1:
+				System.out.println(" Please Enter the Item you wold like to remove");
+				double item;
+				item = sca.nextDouble();
+			//	Inventory.removeItem(Item item);  /// not sure how to fix it tried every thing is possible ;(
+
+				Invintory();
+				break;
+
+			case 2:
+				System.out.println(Inventory.getInventoryList());
+				Invintory();
+				break;
+
+			case 3:
+				System.out.println(" Please Select one of the following   ");
+				System.out.println(" 4 Order All Item ");
+				System.out.println(" 5 order by item");
+
+				while (ValidSelection == false) {
+					String _input = input.nextLine();
+					try {
+						Selection = Integer.parseInt(_input);
+					} catch (NumberFormatException e) {
+						System.out.println("Please enter a valid number!");
+						continue;
+					}
+				}
+			case 4:
+				break;
+
+
+
+
+
+
+
+
+		}
+	}
+
 	private void managerMenu() {
-		double Sale;
-		double Return;
-		double Invintory;
-		double report;
+
 
 		Scanner Input = new Scanner(System.in);
 
 		System.out.println(" 1 Sale");
 		System.out.println(" 2 Return");
 		System.out.println(" 3 Invintory");
-		System.out.println(" 4 X Report");
-		System.out.println(" 5 Z Report");
 		System.out.println(" X Log Out");
 		int choice = -1;
 		while (choice < 0 || choice > 5) {
 			try {
 				System.out.println(" Enter Your Selection");
 				choice = Integer.parseInt(Input.nextLine());
-			}
-
-			catch (NumberFormatException e) {
+			} catch (NumberFormatException e) {
 				System.out.println("Invalied Selection");
 			}
 		}
 		switch (choice) {
 
-		case 1:
+			case 1:
 
-			SalesMenu();
+				SalesMenu();
 
-		case 2:
+			case 2:
 
-			ReturnsMenu();
+				ReturnsMenu();
 
-			break;
+				break;
 
-		case 3:
-			System.out.println(" 4 InvintoryList");
-			System.out.println(" 5 Order Item");
-			System.out.println(" 6 Order Received");
-			System.out.println(" 7 X Report");
-			System.out.println(" 8 Z Report");
-			System.out.println(" 9 Remove Item");
+			case 3:
+				Invintory();
 
-		case 4:
+				break;
 
-			Inventory.getInventoryList();
-
-		case 5:
-			Inventory.orderItems();
-
-		case 6:
-			Inventory.orderReceived(choice);
-
-		case 7:
-
-			// X Report
-		case 8:
-			// Z Report
-		case 9:
-			// Inventory.removeItem(choice);
-			break;
 		}
 		return;
 
 	}
-
 }
