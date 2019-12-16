@@ -8,6 +8,7 @@ public class Menu {
 	Register register1 = new Register(1);
 	Register register2 = new Register(2);
 	Register operatingRegister;
+	String userType;
 	private Scanner input = new Scanner(System.in); // Just to save some typing
 
 	private static boolean exit;
@@ -85,7 +86,7 @@ public class Menu {
 
 		}
 
-		String userType = newLoginSystem.getUserLookup().get(Username).getRole();
+		userType = newLoginSystem.getUserLookup().get(Username).getRole();
 
 		if (userType.equalsIgnoreCase("Cashier")) {
 			CashierMenu();
@@ -168,7 +169,12 @@ public class Menu {
 				break;
 			case 3:
 				newSale.processPayment();
-				CashierMenu();
+				if (userType.equalsIgnoreCase("cashier")) {
+					CashierMenu();
+				} else {
+					managerMenu();
+				}
+
 				break;
 
 			}
@@ -271,7 +277,11 @@ public class Menu {
 			}
 
 			newReturn.processPayment();
-			CashierMenu();
+			if (userType.equalsIgnoreCase("cashier")) {
+				CashierMenu();
+			} else {
+				managerMenu();
+			}
 
 		}
 
