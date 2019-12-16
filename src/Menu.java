@@ -56,6 +56,8 @@ public class Menu {
 			break;
 		}
 
+		PrintMenu();
+
 	}
 
 	private void PrintMenu() {
