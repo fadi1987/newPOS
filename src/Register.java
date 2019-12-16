@@ -1,6 +1,7 @@
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Scanner;
 import java.io.*;
 import java.time.format.DateTimeFormatter;
 
@@ -119,6 +120,79 @@ public class Register {
 		pw.close();
 		
 	}
+	
+	public static void getXReport() throws IOException {
+		
+		System.out.println("Please enter Cashier ID.");
+		Scanner input = new Scanner(System.in);
+		int ID = input.nextInt();
+		
+		System.out.println("Please enter A specific day in the format of yyyy-MM-dd");
+		String saidDay = input.nextLine();
+		DateTimeFormatter dayFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+		
+		String path = "XReport" + ID + saidDay +".csv";
+		FileWriter csvWriter = new FileWriter(path, false);
+		BufferedWriter buffWriter = new BufferedWriter(csvWriter);
+		PrintWriter pw = new PrintWriter(buffWriter);
+
+		
+		pw.println("Cashier Name" + "," + "Trsansaction Type" + "," + "Transaction Amount" + "," + "Date" + "," + "Time");
+		for (Transaction x : overallTransactions) {
+			
+			if (x.getUser().getUserID() == ID && x.getTime().format(dayFormatter).equals(saidDay)) {
+				pw.println(x.getUser().GetFirstName() + " " + x.getUser().GetLastName() + "," +
+					x.getTransType().toString() + "," +
+					x.getTotal() + "," +
+					x.getTime().format(dayFormatter) + "," +
+					x.getTime().format(timeFormatter)
+						);
+			} 
+		}
+		
+		System.out.println("The report has been saved to local folder titled \"" + path + "\"");
+		
+		pw.flush();
+		pw.close();
+		
+	}
+	
+	public static void getZReport() throws IOException {
+
+		Scanner input = new Scanner(System.in);
+		System.out.println("Please enter A specific day in the format of <yyyy-MM-dd>.");
+		String saidDay = input.nextLine();
+		
+		DateTimeFormatter dayFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+		
+		String path = "ZReport" + saidDay +".csv";
+		FileWriter csvWriter = new FileWriter(path, false);
+		BufferedWriter buffWriter = new BufferedWriter(csvWriter);
+		PrintWriter pw = new PrintWriter(buffWriter);
+
+		
+		pw.println("Cashier Name" + "," + "Trsansaction Type" + "," + "Transaction Amount" + "," + "Date" + "," + "Time");
+		for (Transaction x : overallTransactions) {
+			
+			if (x.getTime().format(dayFormatter).equals(saidDay)) {
+				pw.println(x.getUser().GetFirstName() + " " + x.getUser().GetLastName() + "," +
+					x.getTransType().toString() + "," +
+					x.getTotal() + "," +
+					x.getTime().format(dayFormatter) + "," +
+					x.getTime().format(timeFormatter)
+						);
+			} 
+		}
+		
+		System.out.println("The report has been saved to local folder titled \"" + path + "\"");
+		
+		pw.flush();
+		pw.close();
+		
+	}
+	
 	
 	public User getCurrentUser() {
 		return currentUser;

@@ -1,6 +1,8 @@
 
 import java.io.IOException;
+import java.sql.Time;
 import java.time.LocalDateTime; // Import the LocalDateTime class
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter; // Import the DateTimeFormatter class
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,6 +25,9 @@ public abstract class Transaction {
 	protected boolean TransectionStatus;
 	String receipt;
 	String path;
+	Shifts cashierShift;
+	int dayAfternoonBoundary = 12;
+	int afternoonEveningBoundary = 16;
 
 	public Transaction(Register register) {
 		this.register = register;
@@ -31,7 +36,17 @@ public abstract class Transaction {
 		items = new ArrayList<Item>();
 		transactionID = transactionCounter++;
 		path = "Receipt" + transactionID + ".txt";
+		
+		if (time.toLocalTime().getHour()<=12) {
+			cashierShift=Shifts.Morning;
+		} else if (time.toLocalTime().getHour() <=16) {
+			cashierShift=Shifts.Afternoon;
+		} else {
+			cashierShift=Shifts.Evening;
+		}
 	}
+	
+	
 
 	public double getSubTotal() {
 		return subTotal;
@@ -89,6 +104,29 @@ public abstract class Transaction {
 	public void setTransType(TransactionType transType) {
 		this.transType = transType;
 	}
+
+	public int getDayAfternoonBoundary() {
+		return dayAfternoonBoundary;
+	}
+
+
+	public void setDayAfternoonBoundary(int dayAfternoonBoundary) {
+		this.dayAfternoonBoundary = dayAfternoonBoundary;
+	}
+
+
+
+	public int getAfternoonEveningBoundary() {
+		return afternoonEveningBoundary;
+	}
+
+
+
+	public void setAfternoonEveningBoundary(int afternoonEveningBoundary) {
+		this.afternoonEveningBoundary = afternoonEveningBoundary;
+	}
+
+
 
 	public void setUser(User person) {
 		this.handler = person;

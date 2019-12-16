@@ -115,18 +115,30 @@ public class Sales extends Transaction {
 
 	@Override
 	public String printReceipts() {
-		
+
 		DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("yyyy-MM-dd\tHH:mm:ss");
 		String formattedDateTime = myFormatObj.format(time);
 
-		
 		String purchases = String.format("%20s %20s %20s \r\n", "Item Name", "Quantity", "Unit Price");
-		for (Entry<Item,Number> x : saleList.entrySet()) {
-			purchases += String.format("%20s %20s %20s \r\n", x.getKey().getName(), x.getValue(), x.getKey().getPricePerUnit());
+		for (Entry<Item, Number> x : saleList.entrySet()) {
+			purchases += String.format("%20s %20s %20s \r\n", x.getKey().getName(), x.getValue(),
+					x.getKey().getPricePerUnit());
 		}
-		
-		receipt = "\t\t\t****** Sale ******* \nTime: " + formattedDateTime + "\nSale ID: "  +transactionID + "\n" + "\n" + purchases + "\n\n" + printTotals();
-		
+
+		String receipt = "\t\t\t****** Sale ******* \nTime: " + formattedDateTime + "\nSale ID: " + transactionID + "\n"
+				+ "\n" + purchases + "\n\n" + printTotals();
+		try {
+
+			FileWriter csvWriter = new FileWriter(path, false);
+			BufferedWriter buffWriter = new BufferedWriter(csvWriter);
+			PrintWriter pw = new PrintWriter(buffWriter);
+			pw.println(receipt);
+
+			pw.flush();
+			pw.close();
+		} catch (IOException e) {
+			System.out.println("Something went wrong.  Receipt not printed.");
+		}
 		return receipt;
 	}
 
