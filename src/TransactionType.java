@@ -1,5 +1,5 @@
 
 public enum TransactionType {
-	Sales, Returns;
-
+	Sales, 
+	Returns;
 }

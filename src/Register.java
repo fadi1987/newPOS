@@ -17,6 +17,7 @@ public class Register {
 	
 	
 	public Register(int RegisterID) {
+		loginModule = new Login();
 		this.RegisterID = RegisterID;
 		registerTransactions = new ArrayList<Transaction>();
 		registerTransactionAmount = 0.00;
@@ -25,6 +26,7 @@ public class Register {
 	}
 	
 	public Register(int RegisterID, double existingCash) {
+		loginModule = new Login();
 		this.RegisterID = RegisterID;
 		registerTransactions = new ArrayList<Transaction>();
 		registerTransactionAmount = 0.00;
@@ -33,9 +35,17 @@ public class Register {
 	}
 	
 	public void initiateLogin(String userName, String password) {
-		loginModule = new Login();
 		loginModule.checkLogin(userName, password);
-		currentUser = loginModule.getLoggedInUser();
+		if (loginModule.getIsLoggedIn() == true) {
+			currentUser = loginModule.getLoggedInUser();
+		} else {
+			Scanner input = new Scanner(System.in);
+			System.out.println("Please Enter your UserName  ");
+			String _Username = input.nextLine();
+			System.out.println("Please Enter your password");
+			String _Password = input.nextLine();
+			initiateLogin(_Username, _Password);
+		}
 	}
 	
 	public void addTransaction(Transaction transaction) {
@@ -123,16 +133,25 @@ public class Register {
 	
 	public static void getXReport() throws IOException {
 		
-		System.out.println("Please enter Cashier ID.");
+		System.out.println("Please enter User ID for the user you want to see.");
 		Scanner input = new Scanner(System.in);
 		int ID = input.nextInt();
 		
 		System.out.println("Please enter A specific day in the format of yyyy-MM-dd");
-		String saidDay = input.nextLine();
+		Scanner try2 = new Scanner(System.in); //Somehow this line got skipped if I don't create another scanner... Not really sure why.
+		String saidDay = try2.nextLine();
+		
+		
+		
+		Shifts shift = getShiftEnum();
+		
+		
+		
 		DateTimeFormatter dayFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
 		
 		String path = "XReport" + ID + saidDay +".csv";
+		
 		FileWriter csvWriter = new FileWriter(path, false);
 		BufferedWriter buffWriter = new BufferedWriter(csvWriter);
 		PrintWriter pw = new PrintWriter(buffWriter);
@@ -141,7 +160,7 @@ public class Register {
 		pw.println("Cashier Name" + "," + "Trsansaction Type" + "," + "Transaction Amount" + "," + "Date" + "," + "Time");
 		for (Transaction x : overallTransactions) {
 			
-			if (x.getUser().getUserID() == ID && x.getTime().format(dayFormatter).equals(saidDay)) {
+			if (x.getUser().getUserID() == ID && x.getTime().format(dayFormatter).equals(saidDay) && x.getCashierShift() == shift) {
 				pw.println(x.getUser().GetFirstName() + " " + x.getUser().GetLastName() + "," +
 					x.getTransType().toString() + "," +
 					x.getTotal() + "," +
@@ -151,10 +170,36 @@ public class Register {
 			} 
 		}
 		
-		System.out.println("The report has been saved to local folder titled \"" + path + "\"");
+		System.out.println("The report has been saved to local folder with the file name titled \"" + path + "\"");
 		
 		pw.flush();
 		pw.close();
+		
+	}
+	
+	private static Shifts getShiftEnum() {
+		Scanner ShiftINput = new Scanner(System.in);
+		System.out.println("Please enter the shift in question.  Please only enter \"Morning\", \"Afternoon\", or \"Evening\"");
+		Shifts one = Shifts.Morning;
+		boolean validEntry = false;
+		while (validEntry == false) {
+			String input = ShiftINput.nextLine();
+			if (input.equalsIgnoreCase("morning")) {
+				one = Shifts.Morning;
+				validEntry = true;
+			} else if (input.equalsIgnoreCase("afternoon")) {
+				one = Shifts.Afternoon;
+				validEntry = true;
+			} else if (input.equalsIgnoreCase("Evening")) {
+				one = Shifts.Evening;
+				validEntry = true;
+			} else {
+				System.out.println("Invalid entry, please only enter Morning, Afternoon or Evening. Please type again.");
+				validEntry = false;
+			}
+		}
+		
+		return one;
 		
 	}
 	
@@ -194,7 +239,7 @@ public class Register {
 	}
 	
 	
-	public User getCurrentUser() {
+	public User getCurrentUser() {	
 		return currentUser;
 	}
 

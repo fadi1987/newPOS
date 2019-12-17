@@ -1,0 +1,10 @@
+			****** Sale ******* 
+Time: 2019-12-17	17:02:18
+Sale ID: 0
+
+           Item Name             Quantity           Unit Price 
+               Apple                  8.4                 2.99 
+           Batteries                 2000                 0.01 
+
+
+Subtotal: $45.11	Tax: $ 2.82	Total: $47.93	

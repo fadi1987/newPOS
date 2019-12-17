@@ -13,7 +13,7 @@ public class UserReaderClass {
 	 * ReadLoginData(); }
 	 */
 	private static String _pathToStorageFileUserInfo = "Userinfo.csv";
-	
+
 	public UserReaderClass() throws IOException {
 		ReadLoginData();
 	}
@@ -29,50 +29,46 @@ public class UserReaderClass {
 
 			return;
 		}
-		
-		// Write Content
-				FileWriter storageFileWriter = new FileWriter(storageFile);
-				storageFileWriter.append("FirstName");
-				storageFileWriter.append(",");
-				storageFileWriter.append("LastName");
-				storageFileWriter.append(",");
-				storageFileWriter.append("UserName");
-				storageFileWriter.append(",");
-				storageFileWriter.append("Password");
-				storageFileWriter.append(",");
-				storageFileWriter.append("EmailAddress");
-				storageFileWriter.append(",");
-				storageFileWriter.append("PhoneNumber");
-				storageFileWriter.append(",");
-				storageFileWriter.append("UserID");
-				storageFileWriter.append(",");
-				storageFileWriter.append("Role");
-				storageFileWriter.append(",");
-				
 
-				storageFileWriter.flush();
-				storageFileWriter.close();
+		// Write Content
+		FileWriter storageFileWriter = new FileWriter(storageFile);
+		storageFileWriter.append("FirstName");
+		storageFileWriter.append(",");
+		storageFileWriter.append("LastName");
+		storageFileWriter.append(",");
+		storageFileWriter.append("UserName");
+		storageFileWriter.append(",");
+		storageFileWriter.append("Password");
+		storageFileWriter.append(",");
+		storageFileWriter.append("EmailAddress");
+		storageFileWriter.append(",");
+		storageFileWriter.append("PhoneNumber");
+		storageFileWriter.append(",");
+		storageFileWriter.append("UserID");
+		storageFileWriter.append(",");
+		storageFileWriter.append("Role");
+		storageFileWriter.append(",");
+
+		storageFileWriter.flush();
+		storageFileWriter.close();
 	}
-	
+
 	private static void ReadLoginData() throws IOException {
 		String row;
 
-		//ArrayList<User> storedUsers = new ArrayList<User>();
-
 		BufferedReader csvReader = new BufferedReader(new FileReader(_pathToStorageFileUserInfo));
+		
+		row = csvReader.readLine(); //Skip the first line as it is the title. Don't perform any action on the first line.
 
 		while ((row = csvReader.readLine()) != null) {
 			String[] userData = row.split(",");
 
-		
+			User rowUser = new User(userData[0], userData[1], userData[2], userData[3], userData[4], userData[5],
+					userData[6], Integer.parseInt(userData[7])); //Creating users from file.
 
-			User rowUser = new User(userData[0], userData[1], userData[2], userData[3], userData[4], userData[5], userData[6],Integer.parseInt(userData[7]));
-
-			//storedUsers.add(rowUser);
 		}
 
 		csvReader.close();
-
-		//return storedUsers;
+		// return storedUsers;
 	}
 }

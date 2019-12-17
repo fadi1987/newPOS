@@ -10,8 +10,7 @@ public class User {
 	private String LastName;
 	private String EmailAddress;
 	private String PhoneNumber;
-	private String role; // Enum did not work properly in the UI... so swapping back to string for the
-							// time being.
+	private String role; // Enum did not work properly in the UI... so swapping back to string for the time being.
 	public Login login;
 	private int UserID; // Users have to manually set this value. Have to be unique
 

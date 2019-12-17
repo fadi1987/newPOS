@@ -1,5 +1,10 @@
 
 import javax.swing.*;
+
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.DateFormatSymbols;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -45,14 +50,16 @@ public class Return extends Transaction {
 			Item obj = Inventory.getItemMap().get(itemID);
 
 			if (saleCopy.containsKey(obj) && quantity.doubleValue() <= saleCopy.get(obj).doubleValue()) {
-				message = "Successfully added";
 				returnMap.put(obj, quantity);
 				message = "Added to returns";
+				System.out.println(message);
 			} else {
 				message = "The original sale does not contain this object or that you have entered too many quantities.";
+				System.out.println(message);
 			}
 		} else {
 			message = "Invalid Item ID";
+			System.out.println(message);
 		}
 
 //        LineItem item = user.getInstance().getSaleById( saleId ).getLineItemByCode( product.getItemID() );
@@ -157,6 +164,20 @@ public class Return extends Transaction {
 
 		receipt = "****** Return ******* \n" + formattedDateTime + "\nSale ID: " + saleId + "\nReturn ID: "
 				+ transactionID + "\n" + "\n" + returns + "\n\n\n" + printTotals();
+		System.out.println(receipt);
+		
+		try { //Also, save the receipt to file.
+
+			FileWriter csvWriter = new FileWriter(path, false);
+			BufferedWriter buffWriter = new BufferedWriter(csvWriter);
+			PrintWriter pw = new PrintWriter(buffWriter);
+			pw.println(receipt);
+
+			pw.flush();
+			pw.close();
+		} catch (IOException e) {
+			System.out.println("Something went wrong.  Receipt not printed.");
+		}
 
 		return receipt;
 	}

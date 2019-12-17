@@ -89,7 +89,7 @@ public class Login {
 	public User getLoggedInUser() {
 		return loggedInUser;
 	}
-	public boolean isLoggedIn() {
+	public boolean getIsLoggedIn() {
 		return loggedIn;
 	}
 

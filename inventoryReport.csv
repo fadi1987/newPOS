@@ -1,5 +1,10 @@
 Item Name,Current Item Quantity,Threshhold,Supplier,Pending Item Quantity
-Apple,47.374700000000004,20.0,Riven,0
-Pear,20.5,10.0,Fiora,0
-Hand Lotion,60,20,Irelia,0
-Riot Points,6200,1000,Zed,0
+Apple,0.2,50,Target,0
+Orange,0.6,30,Target,0
+Banana,1000,200,Target,0
+Grape,20.3,10.2,Target,0
+Strawberry,80.2,7,Target,0
+Blueberry,100.6,5.5,Target,0
+Pear,20.6,6.5,Target,0
+Bag,50,5,Target,0
+Batteries,90000,200,Riot Games,0

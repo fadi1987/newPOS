@@ -19,22 +19,19 @@ public class Sales extends Transaction {
         transType = TransactionType.Sales;
     }
 
-    public void addItem(int productID, Number quantity){
-    	String message;//Message should be linked to a label in GUI.
-    	ArrayList<Item> copyList = Inventory.getInventoryList();
-    	
-    	
-    	for (Item x : copyList) {
-    		if (x.getItemID()==productID && x.getQuantity().doubleValue() >= quantity.doubleValue()) {
-    			saleList.put(x, quantity);
-    			message = "Successfully Added";
-    			System.out.println(message);
-    		} else {
-    			message = "Product not found/Insufficient quantity.";
-    			System.out.println(message);
-    		}
-    	}
-    }
+	public void addItem(int productID, Number quantity) {
+		String message;// Message should be linked to a label in GUI.
+		Item x = Inventory.getItemMap().get(productID);
+		
+		if (x != null && x.getQuantity().doubleValue() >= quantity.doubleValue()) {
+			saleList.put(x, quantity);
+			message = "Successfully Added";
+			System.out.println(message);
+		} else {
+			message = "Product not found/Insufficient quantity.";
+			System.out.println(message);
+		}
+	}
 
     public void removeItem(int productID, Number toBeRemoved){
     	
@@ -46,15 +43,18 @@ public class Sales extends Transaction {
     	} else if (toBeRemoved == saleList.get(itemRemoved)) {
     		saleList.remove(itemRemoved);
     		message = "Item removed";
+    		System.out.println(message);
     	} else {
     		if (toBeRemoved instanceof Integer) {
     			int newQuan = (int) (saleList.get(itemRemoved).doubleValue() - toBeRemoved.doubleValue());
     			saleList.replace(itemRemoved, newQuan);
     			message = "Quantity decreased to " + newQuan + ".";
+    			System.out.println(message);
     		} else {
     			double newQuan = saleList.get(itemRemoved).doubleValue() - toBeRemoved.doubleValue();
     			saleList.replace(itemRemoved, newQuan);
     			message = "Quantity decreased to " + newQuan + ".";
+    			System.out.println(message);
     		}
     	}
     	
@@ -127,7 +127,8 @@ public class Sales extends Transaction {
 
 		String receipt = "\t\t\t****** Sale ******* \nTime: " + formattedDateTime + "\nSale ID: " + transactionID + "\n"
 				+ "\n" + purchases + "\n\n" + printTotals();
-		try {
+		System.out.println(receipt); 
+		try { //Also, save the receipt to file.
 
 			FileWriter csvWriter = new FileWriter(path, false);
 			BufferedWriter buffWriter = new BufferedWriter(csvWriter);

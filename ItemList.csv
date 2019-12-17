@@ -1,0 +1,10 @@
+Item name,Item supplier,In-Store Item Quantity (lb or each),Ordering Threshhold,Price Per Unit,Item ID,Default ordering quantity
+Apple,Target,30.2,50,2.99,1,40
+Orange,Target,50.6,30,3.45,2,50
+Banana,Target,1000,200,2.34,3,80
+Grape,Target,20.3,10.2,2.34,4,60
+Strawberry,Target,80.2,7,1.99,5,50
+Blueberry,Target,100.6,5.5,2.69,6,40
+Pear,Target,20.6,6.5,3.14,7,30
+Bag,Target,50,5,50.99,8,70
+Batteries,Riot Games,90000,200,0.01,9,100000

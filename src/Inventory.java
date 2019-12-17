@@ -7,6 +7,9 @@
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Inventory {
 	private static String name;
@@ -16,11 +19,17 @@ public class Inventory {
 	private static String path;
 	
 	public Inventory(String storeName) {
-		this.name = name;
-		inventoryList = new ArrayList<Item>();
-		itemCount=0;
-		path = "inventoryReport.csv";
-		itemMap = new HashMap<Integer, Item>();
+		
+		if (inventoryList == null) { //There can only be one inventory.
+			this.name = name;
+			inventoryList = new ArrayList<Item>();
+			itemCount=0;
+			path = "inventoryReport.csv";
+			itemMap = new HashMap<Integer, Item>();
+		} else {
+			this.name = name;
+		}
+
 		
 	}
 	
@@ -38,7 +47,7 @@ public class Inventory {
 	
 	public static void orderItems() { //Loop through the list and check the health on all items, if it is below the threshhold, order the item.
 		for (Item i : inventoryList) {
-			if ((double) i.getQuantity() < (double)i.getThreshhold()) {
+			if (i.getQuantity().doubleValue() < i.getThreshhold().doubleValue()) {
 				i.setOrderingQuantity(i.getOrderQuantity());
 			}
 		}
@@ -49,7 +58,7 @@ public class Inventory {
 		item.setOrderingQuantity(item.getOrderQuantity());
 	}
 	
-	public static void orderItems(int itemID, int orderQuantity) { //
+	public static void orderItems(int itemID, Number orderQuantity) { //Specify the quantity to be ordered.
 		Item item = itemMap.get(itemID);
 		item.setOrderingQuantity(orderQuantity);
 	}
@@ -99,6 +108,75 @@ public class Inventory {
 		} finally {
 			return message;
 		}
+	}
+	
+	/*
+	public void editItem(){
+		Item i = searchForItemById();
+		inventoryList.remove( i );
+//		String name, String supplier, Number Quantity, Number Threshold, double pricePerUnit, int ItemID, Number orderQuantity
+		i.setName(promptUser("Enter item name").next());
+		i.setSupplier(promptUser("Enter Supplier Name").next());
+		i.setQuantity(promptUser("Enter Quantity").nextInt());
+		i.setThreshold(promptUser("Enter Threshold").nextInt());
+		i.setPricePerUnit(promptUser("Enter Item Price").nextDouble());
+		i.setItemID( promptUser( "Enter item ID" ).nextInt());
+		i.setOrderQuantity(promptUser("Enter order Quantity").nextInt());
+	}
+	*/
+/*	
+	public static void addToInventory(Item i) {
+//		inventoryList.add(item);
+//		itemMap.put(item.getItemID(), item);
+//		itemCount++;
+			inventoryList.add( i );
+//		String name, String supplier, Number Quantity, Number Threshold, double pricePerUnit, int ItemID, Number orderQuantity
+			i.setName(promptUser("Enter item name").next());
+			i.setSupplier(promptUser("Enter Supplier Name").next());
+			i.setQuantity(promptUser("Enter Quantity").nextInt());
+			i.setThreshold(promptUser("Enter Threshold").nextInt());
+			i.setPricePerUnit(promptUser("Enter Item Price").nextDouble());
+			i.setItemID( promptUser( "Enter item ID" ).nextInt());
+			i.setOrderQuantity(promptUser("Enter order Quantity").nextInt());
+
+	}
+	*/
+	
+	public static Item getItemByID(int itemID) {
+		return itemMap.get(itemID);
+	}
+	
+	public void saveItemToFile() {
+		try {
+			ObjectOutput objectOutput = new ObjectOutputStream(new FileOutputStream("src/ItemList.csv"));
+			objectOutput.writeObject(inventoryList);
+			objectOutput.close();
+		} catch (FileNotFoundException ex) {
+			Logger.getLogger(Inventory.class.getName()).log(Level.SEVERE, null, ex);
+		} catch (IOException ex) {
+			Logger.getLogger(Inventory.class.getName()).log(Level.SEVERE, null, ex);
+		}
+	}
+	
+/*	public void loadItemList() {
+		try {
+			File file = new File("src/ItemList.csv");
+			ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(file));
+			inventoryList = (ArrayList<Item>)objectInputStream.readObject();
+			objectInputStream.close();
+		} catch (IOException ex) {
+			Logger.getLogger(Inventory.class.getName()).log( Level.SEVERE, null, ex);
+		} catch (ClassNotFoundException ex) {
+			Logger.getLogger(Inventory.class.getName()).log(Level.SEVERE, null, ex);
+		}
+	}
+	*/
+
+
+	public static Scanner promptUser(String message) {
+		System.out.println(message);
+		Scanner scan;
+		return scan = new Scanner(System.in);
 	}
 
 }
