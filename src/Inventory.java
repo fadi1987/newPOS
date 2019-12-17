@@ -49,7 +49,7 @@ public class Inventory {
 		item.setOrderingQuantity(item.getOrderQuantity());
 	}
 	
-	public static void orderItems(int itemID, Number orderQuantity) { //
+	public static void orderItems(int itemID, int orderQuantity) { //
 		Item item = itemMap.get(itemID);
 		item.setOrderingQuantity(orderQuantity);
 	}

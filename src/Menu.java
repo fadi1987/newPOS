@@ -1,4 +1,5 @@
 import java.util.HashMap;
+import java.util.InvalidPropertiesFormatException;
 import java.util.Scanner;
 import java.io.IOException;
 import java.lang.NumberFormatException;
@@ -305,52 +306,75 @@ public class Menu {
 				continue;
 			}
 
-		}
+
+			switch (Selection) {
 
 
-		switch (Selection) {
+				case 1:
+					System.out.println(" Please Enter the Item you wold like to remove");
+					double item;
+					item = sca.nextDouble();
+					//	Inventory.removeItem(Item item);  /// not sure how to fix it tried every thing is possible ;(
+
+					Invintory();
+					break;
+
+				case 2:
+					System.out.println(Inventory.getInventoryList());
+					Invintory();
+					break;
+
+				case 3:
+					double sel;
+
+					System.out.println(" Please Select one of the following   ");
+					System.out.println(" 4 Order All Item ");
+					System.out.println(" 5 order by item");
+					sel = sca.nextDouble();
+					break;
+
+				case 4:
+					System.out.println(" All Item that is below threshhold has been order ");
+				 Inventory.orderItems();
+
+				 break;
+
+				case 5:
+					boolean ItemOrde = false;
+
+				System.out.println(" Please Select Item that you would like to order ");
+				 while (ItemOrde == false) {
+					 String Input = input.nextLine();
+					 try {
+						 Selection = Integer.parseInt(Input);
+					 } catch (NumberFormatException e) {
+						 System.out.println("Please enter a valid number!");
+						 continue;
+					 }
+
+					 System.out.println(" Please Enter your Item Id ");
+					 int itemID;
+					 itemID=sca.nextInt();
+					 System.out.println("Please Enter the orderQuantity" );
+					 int orderQuantity ;
+					 orderQuantity = sca.nextInt();
+					 System.out.println();
+					 Inventory.orderItems(itemID,orderQuantity);
+
+				 }
 
 
-			case 1:
-				System.out.println(" Please Enter the Item you wold like to remove");
-				double item;
-				item = sca.nextDouble();
-			//	Inventory.removeItem(Item item);  /// not sure how to fix it tried every thing is possible ;(
+					break;
+				default:
 
-				Invintory();
-				break;
+			}
 
-			case 2:
-				System.out.println(Inventory.getInventoryList());
-				Invintory();
-				break;
-
-			case 3:
-				System.out.println(" Please Select one of the following   ");
-				System.out.println(" 4 Order All Item ");
-				System.out.println(" 5 order by item");
-
-				while (ValidSelection == false) {
-					String _input = input.nextLine();
-					try {
-						Selection = Integer.parseInt(_input);
-					} catch (NumberFormatException e) {
-						System.out.println("Please enter a valid number!");
-						continue;
-					}
-				}
-			case 4:
-				break;
-
-
-
-
-
-
-
-
+			return;
 		}
 	}
+
+
+
 
 	private void managerMenu() {
 
@@ -360,6 +384,7 @@ public class Menu {
 		System.out.println(" 1 Sale");
 		System.out.println(" 2 Return");
 		System.out.println(" 3 Invintory");
+		System.out.println(" 4 Print Report ");
 		System.out.println(" X Log Out");
 		int choice = -1;
 		while (choice < 0 || choice > 5) {
@@ -387,8 +412,30 @@ public class Menu {
 
 				break;
 
+			case 4 :
+				double aa;
+				System.out.println(" 5 X Report ");
+				System.out.println(" 6 Z Report ");
+				aa = Input.nextDouble();
+
+				break;
+			case 5 :
+				System.out.println("  X Report ");
+				Inventory.printReports();
+
+				break;
+
+			case 6 :
+				System.out.println("  Z Report ");
+				Inventory.printReports();
+
+				break;
+
+
+
+
 		}
 		return;
-
 	}
+
 }
