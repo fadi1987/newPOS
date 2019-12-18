@@ -77,9 +77,8 @@ public class Menu {
 		System.out.println("1. Sale");
 		System.out.println("2. Return");
 		System.out.println("3. Log out");
-		System.out.println("0. Exit");
 
-		int choice = SelectionChecker(0, 3);
+		int choice = SelectionChecker(1, 3);
 
 		switch (choice) {
 
@@ -94,12 +93,7 @@ public class Menu {
 		case 3:
 			PrintMenu();
 			break;
-
-		case 0:
-			return;
-
 		}
-
 	}
 
 	public void SalesMenu() {

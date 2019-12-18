@@ -1,5 +1,5 @@
 			****** Sale ******* 
-Time: 2019-12-17	20:46:21
+Time: 2019-12-17	21:00:16
 Sale ID: 1
 
            Item Name             Quantity           Unit Price 

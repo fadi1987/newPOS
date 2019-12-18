@@ -1,9 +1,10 @@
 			****** Sale ******* 
-Time: 2019-12-17	20:46:21
+Time: 2019-12-17	21:28:57
 Sale ID: 0
 
            Item Name             Quantity           Unit Price 
- HP Envy 17.3 Laptop                    2               899.99 
+                Pear                 10.3                 3.14 
+              Orange                   25                 3.45 
 
 
-Subtotal: $1799.98	Tax: $ 112.50	Total: $1912.48	
+Subtotal: $118.59	Tax: $  7.42	Total: $126.01	
