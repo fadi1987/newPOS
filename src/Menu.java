@@ -376,7 +376,7 @@ public class Menu {
 			double _price = input.nextDouble();
 			System.out.println("Please enter the item ID. Be sure this ID is NOT given to some other item");
 			int thisItemID = integerChecker();
-			System.out.println("Specify the order quantity.  The default quantity that the you would order should the item fall below this threshhold.");
+			System.out.println("Specify the order quantity.  The default quantity that the you would order should the item quantity fall below this threshhold.");
 			Number _orderQuantity = formatChecker();
 			
 			Item whatever = new Item(_name, _supplier, _quantity, _thre, _price, thisItemID, _orderQuantity);

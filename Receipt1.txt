@@ -1,6 +1,6 @@
 			****** Sale ******* 
 Time: 2019-12-17	20:46:21
-Sale ID: 0
+Sale ID: 1
 
            Item Name             Quantity           Unit Price 
  HP Envy 17.3 Laptop                    2               899.99 

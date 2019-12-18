@@ -35,7 +35,7 @@ public class Item {
 		
 	}	
 	
-	private void addItems(Item item) {
+	public void addItems(Item item) {
 		Inventory.addToInventory(item);
 	}
 	
